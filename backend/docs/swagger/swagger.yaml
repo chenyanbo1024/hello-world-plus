@@ -1,0 +1,165 @@
+basePath: /api/v1
+definitions:
+  model.ArticleResponse:
+    properties:
+      author:
+        $ref: '#/definitions/model.Author'
+      category:
+        type: string
+      content:
+        type: string
+      coverImage:
+        type: string
+      excerpt:
+        type: string
+      id:
+        type: string
+      publishedAt:
+        type: string
+      readingTime:
+        type: integer
+      slug:
+        type: string
+      tags:
+        items:
+          type: string
+        type: array
+      title:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  model.ArticleSummaryResponse:
+    properties:
+      category:
+        type: string
+      coverImage:
+        type: string
+      excerpt:
+        type: string
+      id:
+        type: string
+      publishedAt:
+        type: string
+      readingTime:
+        type: integer
+      slug:
+        type: string
+      tags:
+        items:
+          type: string
+        type: array
+      title:
+        type: string
+    type: object
+  model.Author:
+    properties:
+      avatar:
+        type: string
+      bio:
+        type: string
+      name:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@blog.example.com
+    name: API Support
+  description: A personal blog system API built with Go and Gin
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  termsOfService: http://swagger.io/terms/
+  title: Blog API
+  version: "1.0"
+paths:
+  /articles:
+    get:
+      consumes:
+      - application/json
+      description: Get all articles with optional filter by publication status
+      parameters:
+      - description: Filter by published status
+        in: query
+        name: published
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.ArticleSummaryResponse'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get article list
+      tags:
+      - articles
+  /articles/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get a single article by its numeric ID
+      parameters:
+      - description: Article ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ArticleResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get article by ID
+      tags:
+      - articles
+  /articles/slug/{slug}:
+    get:
+      consumes:
+      - application/json
+      description: Get a single article by its URL-friendly slug
+      parameters:
+      - description: Article slug
+        in: path
+        name: slug
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ArticleResponse'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get article by slug
+      tags:
+      - articles
+swagger: "2.0"

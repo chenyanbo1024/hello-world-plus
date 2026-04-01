@@ -22,3 +22,52 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+bin/
+
+# Test binary
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Go workspace file
+go.work
+
+# Environment variables
+.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets and certificates
+*.pem
+*.key
+*.crt
+secrets/
+
+# Dependency directories (for other package managers)
+vendor/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Claude Code settings (optional - remove if you want to commit)
+# .claude/

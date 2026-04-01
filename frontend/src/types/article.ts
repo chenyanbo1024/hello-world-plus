@@ -16,6 +16,7 @@ export interface Article {
   updatedAt?: string;
   readingTime: number;
   tags: string[];
+  category: string;
 }
 
 export interface ArticleSummary {
@@ -27,4 +28,5 @@ export interface ArticleSummary {
   publishedAt: string;
   readingTime: number;
   tags: string[];
+  category: string;
 }
