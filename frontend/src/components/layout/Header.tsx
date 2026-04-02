@@ -1,4 +1,5 @@
 import { Link, NavLink } from 'react-router-dom';
+import { ThemeToggle } from '../common/ThemeToggle';
 
 export function Header() {
   const navLinks = [
@@ -15,7 +16,7 @@ export function Header() {
         >
           <span className="text-accent opacity-50">$</span>
           <span>
-            alex<span className="text-accent">.blog</span>
+            abo<span className="text-accent">.blog</span>
             <span className="cursor-blink text-accent ml-0.5">▎</span>
           </span>
         </Link>
@@ -37,6 +38,8 @@ export function Header() {
               {link.label}
             </NavLink>
           ))}
+          <span className="mx-1 w-px h-4 bg-border" />
+          <ThemeToggle />
         </nav>
       </div>
     </header>

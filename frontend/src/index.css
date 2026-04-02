@@ -24,6 +24,29 @@
   --font-mono: "JetBrains Mono", ui-monospace, "Fira Code", monospace;
 }
 
+/* Light theme overrides */
+html.light {
+  --color-bg-primary: #f8f9fb;
+  --color-bg-secondary: #f0f1f5;
+  --color-bg-card: #ffffff;
+  --color-bg-hover: #ebedf2;
+  --color-border: #e0e2e8;
+  --color-border-bright: #c8cad4;
+  --color-text-primary: #1a1c2e;
+  --color-text-secondary: #4a4d64;
+  --color-text-muted: #7c7f96;
+  --color-accent: #8b5cf6;
+  --color-accent-hover: #7c3aed;
+  --color-accent-dim: rgba(139, 92, 246, 0.08);
+  --color-accent-glow: rgba(139, 92, 246, 0.18);
+  --color-tag-bg: rgba(139, 92, 246, 0.06);
+  --color-tag-border: rgba(139, 92, 246, 0.16);
+  --color-code-bg: #f1f0f7;
+  --color-green: #059669;
+  --color-amber: #d97706;
+  --color-rose: #e11d48;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -46,6 +69,10 @@ body::before {
   z-index: 9999;
   opacity: 0.018;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+html.light body::before {
+  opacity: 0.008;
 }
 
 #root {
@@ -177,8 +204,8 @@ body::before {
   padding: 0.15em 0.4em;
   background-color: var(--color-code-bg);
   border-radius: 4px;
-  color: #c4b5fd;
-  border: 1px solid rgba(139, 92, 246, 0.12);
+  color: var(--color-accent-hover);
+  border: 1px solid var(--color-tag-border);
 }
 
 .prose pre {
