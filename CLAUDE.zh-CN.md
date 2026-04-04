@@ -31,19 +31,24 @@ make dev     # 重新生成 Swagger 并运行服务器
 
 ### 前端技术栈
 - **React 19** + TypeScript + Vite 8 + Tailwind CSS 4
-- **React Router** 路由：`/` (首页)、`/article/:slug` (文章详情)、`/about`
+- **React Router** 路由：`/` (首页)、`/article/:slug` (文章详情)、`/about`、`/search` (搜索结果)
 - **API 层**：服务接口 (`IArticleService`, `IProfileService`)，实际实现调用 `/api/v1/*`
 - **Vite 代理** 将 `/api` 请求转发到后端 `localhost:8080`
+- **组件模式**：
+  - `src/components/common/` - 可复用 UI 组件 (Card, Tag, SearchModal, ThemeToggle, BackToTop, LoadingSpinner)
+  - `src/components/features/` - 领域特定组件 (ArticleCard, ArticleList, ArticleContent, TableOfContents)
+  - `src/components/layout/` - 布局组件 (Header, Footer, Layout)
+  - `src/hooks/` - 自定义 React Hooks，在 `index.ts` 中统一导出
 
 ### 后端技术栈
 - **Go 1.22** + Gin 框架 + GORM ORM + MySQL 数据库
 - **Swagger** 文档地址：`/swagger/index.html`
 - **分层架构**：
   - `cmd/server/main.go` - 入口点，组装依赖
-  - `internal/handler/` - HTTP 处理器
-  - `internal/service/` - 业务逻辑接口和实现
-  - `internal/repository/` - 数据访问接口和实现
-  - `internal/model/` - GORM 模型和响应 DTO
+  - `internal/handler/` - HTTP 处理器 (依赖 service 接口)
+  - `internal/service/` - 业务逻辑接口和实现 (依赖 repository 接口)
+  - `internal/repository/` - 数据访问接口和实现 (依赖 GORM)
+  - `internal/model/` - GORM 模型和响应 DTO，包含 `ToResponse()` 和 `ToSummaryResponse()` 转换方法
   - `internal/middleware/` - CORS 中间件
   - `internal/router/` - 路由定义
 
@@ -54,6 +59,7 @@ make dev     # 重新生成 Swagger 并运行服务器
 | GET | `/api/v1/articles` | 获取文章列表 (?published=true/false) |
 | GET | `/api/v1/articles/:id` | 根据 ID 获取文章 |
 | GET | `/api/v1/articles/slug/:slug` | 根据 slug 获取文章 |
+| GET | `/api/v1/articles/search` | 搜索文章 (?q=关键词&page=1&limit=10) |
 | GET | `/health` | 健康检查 |
 
 ### 数据流

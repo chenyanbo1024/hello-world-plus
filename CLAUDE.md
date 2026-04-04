@@ -31,19 +31,24 @@ make dev     # Regenerate Swagger and run server
 
 ### Frontend Stack
 - **React 19** with TypeScript, Vite 8, Tailwind CSS 4
-- **React Router** for routing: `/` (home), `/article/:slug` (detail), `/about`
+- **React Router** for routing: `/` (home), `/article/:slug` (detail), `/about`, `/search` (search results)
 - **API Layer**: Service interfaces (`IArticleService`, `IProfileService`) with real implementations calling `/api/v1/*`
 - **Vite proxy** forwards `/api` requests to backend at `localhost:8080`
+- **Component Patterns**:
+  - `src/components/common/` - Reusable UI components (Card, Tag, SearchModal, ThemeToggle, BackToTop, LoadingSpinner)
+  - `src/components/features/` - Domain-specific components (ArticleCard, ArticleList, ArticleContent, TableOfContents)
+  - `src/components/layout/` - Layout components (Header, Footer, Layout)
+  - `src/hooks/` - Custom React hooks with barrel export in `index.ts`
 
 ### Backend Stack
 - **Go 1.22** with Gin framework, GORM ORM, MySQL database
 - **Swagger** docs at `/swagger/index.html`
 - **Layered Architecture**:
   - `cmd/server/main.go` - Entry point, wires dependencies
-  - `internal/handler/` - HTTP handlers
-  - `internal/service/` - Business logic interfaces and implementations
-  - `internal/repository/` - Data access interfaces and implementations
-  - `internal/model/` - GORM models and response DTOs
+  - `internal/handler/` - HTTP handlers (depends on service interfaces)
+  - `internal/service/` - Business logic interfaces and implementations (depends on repository interfaces)
+  - `internal/repository/` - Data access interfaces and implementations (depends on GORM)
+  - `internal/model/` - GORM models and response DTOs, includes `ToResponse()` and `ToSummaryResponse()` converters
   - `internal/middleware/` - CORS middleware
   - `internal/router/` - Route definitions
 
@@ -54,6 +59,7 @@ make dev     # Regenerate Swagger and run server
 | GET | `/api/v1/articles` | List articles (?published=true/false) |
 | GET | `/api/v1/articles/:id` | Get article by ID |
 | GET | `/api/v1/articles/slug/:slug` | Get article by slug |
+| GET | `/api/v1/articles/search` | Search articles (?q=keyword&page=1&limit=10) |
 | GET | `/health` | Health check |
 
 ### Data Flow

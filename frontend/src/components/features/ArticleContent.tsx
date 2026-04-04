@@ -1,10 +1,27 @@
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^\w\u4e00-\u9fa5-]/g, '') // 保留中文、字母、数字、下划线、连字符
+    .replace(/--+/g, '-')
+    .replace(/^-+/, '')
+    .replace(/-+$/, '');
+}
+
 interface ArticleContentProps {
   content: string;
 }
 
 export function ArticleContent({ content }: ArticleContentProps) {
-  // 简单的 Markdown 渲染
-  // 注意：生产环境建议使用专业的 Markdown 渲染库如 react-markdown
+  const escapeHtml = (text: string) => {
+    return text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  };
+
   const formatContent = (markdown: string) => {
     return markdown
       // 代码块
@@ -13,10 +30,10 @@ export function ArticleContent({ content }: ArticleContentProps) {
       })
       // 行内代码
       .replace(/`([^`]+)`/g, '<code>$1</code>')
-      // 标题
-      .replace(/^### (.*$)/gm, '<h3>$1</h3>')
-      .replace(/^## (.*$)/gm, '<h2>$1</h2>')
-      .replace(/^# (.*$)/gm, '<h1>$1</h1>')
+      // 标题 (带 id 属性用于锚点跳转)
+      .replace(/^### (.*$)/gm, (_, text) => `<h3 id="${slugify(text)}">${text}</h3>`)
+      .replace(/^## (.*$)/gm, (_, text) => `<h2 id="${slugify(text)}">${text}</h2>`)
+      .replace(/^# (.*$)/gm, (_, text) => `<h1 id="${slugify(text)}">${text}</h1>`)
       // 粗体
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
       // 链接
@@ -39,15 +56,6 @@ export function ArticleContent({ content }: ArticleContentProps) {
       .replace(/\n\n/g, '</p><p>')
       // 换行
       .replace(/\n/g, '<br>');
-  };
-
-  const escapeHtml = (text: string) => {
-    return text
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#039;');
   };
 
   const htmlContent = formatContent(content);

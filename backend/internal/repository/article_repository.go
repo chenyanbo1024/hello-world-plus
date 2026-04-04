@@ -13,6 +13,7 @@ type ArticleRepositoryInterface interface {
 	GetAll(ctx context.Context, published *bool) ([]model.Article, error)
 	GetByID(ctx context.Context, id uint64) (*model.Article, error)
 	GetBySlug(ctx context.Context, slug string) (*model.Article, error)
+	Search(ctx context.Context, query string, page, limit int) ([]model.Article, int64, error)
 }
 
 // ArticleRepository implements ArticleRepositoryInterface
@@ -65,4 +66,31 @@ func (r *ArticleRepository) GetBySlug(ctx context.Context, slug string) (*model.
 	}
 
 	return &article, nil
+}
+
+// Search retrieves articles matching the search query with pagination
+func (r *ArticleRepository) Search(ctx context.Context, query string, page, limit int) ([]model.Article, int64, error) {
+	var articles []model.Article
+	var total int64
+
+	searchPattern := "%" + query + "%"
+
+	db := r.db.WithContext(ctx).Model(&model.Article{}).
+		Where("is_published = ?", true).
+		Where("title LIKE ? OR excerpt LIKE ? OR content LIKE ? OR tags LIKE ? OR category LIKE ? OR author_name LIKE ?",
+			searchPattern, searchPattern, searchPattern, searchPattern, searchPattern, searchPattern)
+
+	if err := db.Count(&total).Error; err != nil {
+		return nil, 0, err
+	}
+
+	offset := (page - 1) * limit
+	if err := db.Order("published_at DESC").
+		Offset(offset).
+		Limit(limit).
+		Find(&articles).Error; err != nil {
+		return nil, 0, err
+	}
+
+	return articles, total, nil
 }

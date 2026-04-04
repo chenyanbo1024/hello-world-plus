@@ -145,3 +145,18 @@ func (a *Article) ToSummaryResponse() ArticleSummaryResponse {
 		Category:    a.Category,
 	}
 }
+
+// SearchMeta contains pagination metadata for search results
+type SearchMeta struct {
+	Query      string `json:"query"`
+	Total      int64  `json:"total"`
+	Page       int    `json:"page"`
+	Limit      int    `json:"limit"`
+	TotalPages int    `json:"totalPages"`
+}
+
+// SearchResponse contains search results with metadata
+type SearchResponse struct {
+	Data []ArticleSummaryResponse `json:"data"`
+	Meta SearchMeta               `json:"meta"`
+}

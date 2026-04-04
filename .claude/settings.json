@@ -18,7 +18,14 @@
       "Bash(curl -s http://localhost:8080/health)",
       "Bash(curl -s http://localhost:8080/api/v1/articles?published=true)",
       "Bash(curl -s http://localhost:8080/swagger/index.html)",
-      "Bash(curl -s http://localhost:8080/swagger/doc.json)"
+      "Bash(curl -s http://localhost:8080/swagger/doc.json)",
+      "Read", "Glob", "Grep", "LSP", "WebSearch", "WebFetch",                                                             
+      "Edit", "Write",                                                                                                    
+      "Bash(git status*)", "Bash(git diff*)", "Bash(git log*)",                                                           
+      "Bash(ls *)", "Bash(find *)", "Bash(cat *)",                                                                        
+      "Bash(mkdir *)", "Bash(echo *)", "Bash(pwd)",                                                                       
+      "Bash(node *)", "Bash(npm run *)", "Bash(npx *)",                                                                   
+      "Bash(cargo *)"
     ]
   }
 }

@@ -30,6 +30,7 @@ func SetupRouter(corsOrigins string) *gin.Engine {
 		articles := v1.Group("/articles")
 		{
 			articles.GET("", handler.GetArticles)
+			articles.GET("/search", handler.SearchArticles)
 			articles.GET("/slug/:slug", handler.GetArticleBySlug)
 			articles.GET("/:id", handler.GetArticleByID)
 		}

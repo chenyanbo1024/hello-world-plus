@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Layout } from './components/layout';
-import { HomePage, ArticleDetailPage, AboutPage } from './pages';
+import { HomePage, ArticleDetailPage, AboutPage, SearchPage } from './pages';
 
 function App() {
   return (
@@ -10,6 +10,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="article/:slug" element={<ArticleDetailPage />} />
           <Route path="about" element={<AboutPage />} />
+          <Route path="search" element={<SearchPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

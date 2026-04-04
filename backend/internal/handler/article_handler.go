@@ -3,6 +3,7 @@ package handler
 import (
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 
@@ -95,4 +96,43 @@ func GetArticleBySlug(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, article)
+}
+
+// SearchArticles godoc
+// @Summary      Search articles
+// @Description  Search articles by keyword in title, excerpt, content, tags, and category
+// @Tags         articles
+// @Accept       json
+// @Produce      json
+// @Param        q     query     string  true   "Search keyword"
+// @Param        page  query     int     false  "Page number"  default(1)
+// @Param        limit query     int     false  "Items per page"  default(10)
+// @Success      200   {object}  model.SearchResponse
+// @Failure      400   {object}  map[string]string
+// @Failure      500   {object}  map[string]string
+// @Router       /api/v1/articles/search [get]
+func SearchArticles(c *gin.Context) {
+	query := strings.TrimSpace(c.Query("q"))
+	if query == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "search query is required"})
+		return
+	}
+
+	page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
+	limit, _ := strconv.Atoi(c.DefaultQuery("limit", "10"))
+
+	if page < 1 {
+		page = 1
+	}
+	if limit < 1 || limit > 50 {
+		limit = 10
+	}
+
+	result, err := articleService.Search(c.Request.Context(), query, page, limit)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, result)
 }
