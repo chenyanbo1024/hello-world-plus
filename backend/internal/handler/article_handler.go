@@ -41,7 +41,7 @@ func GetArticles(c *gin.Context) {
 
 	articles, err := articleService.GetAll(c.Request.Context(), published)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		respondError(c, http.StatusInternalServerError, "internal server error", err)
 		return
 	}
 
@@ -130,7 +130,7 @@ func SearchArticles(c *gin.Context) {
 
 	result, err := articleService.Search(c.Request.Context(), query, page, limit)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		respondError(c, http.StatusInternalServerError, "internal server error", err)
 		return
 	}
 
