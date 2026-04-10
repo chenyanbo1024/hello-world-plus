@@ -10,14 +10,16 @@ import (
 )
 
 // SetupRouter creates and configures the Gin router
-func SetupRouter(corsOrigins string) *gin.Engine {
+func SetupRouter(corsOrigins, swaggerUser, swaggerPass string) *gin.Engine {
 	r := gin.Default()
 
 	// CORS middleware
 	r.Use(middleware.CORS(corsOrigins))
 
-	// Swagger endpoint
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	// Swagger endpoint with Basic Auth
+	swagger := r.Group("/swagger")
+	swagger.Use(middleware.BasicAuth(swaggerUser, swaggerPass))
+	swagger.Any("/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	// Health check
 	r.GET("/health", func(c *gin.Context) {

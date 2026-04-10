@@ -56,7 +56,7 @@ func main() {
 	handler.InitArticleService(articleSvc)
 
 	// Setup router
-	r := router.SetupRouter(config.AppConfig.CORSOrigins)
+	r := router.SetupRouter(config.AppConfig.CORSOrigins, config.AppConfig.SwaggerUser, config.AppConfig.SwaggerPass)
 
 	// Start server
 	serverAddr := ":" + config.AppConfig.ServerPort
