@@ -49,7 +49,7 @@ make dev     # 重新生成 Swagger 并运行服务器
   - `internal/service/` - 业务逻辑接口和实现 (依赖 repository 接口)
   - `internal/repository/` - 数据访问接口和实现 (依赖 GORM)
   - `internal/model/` - GORM 模型和响应 DTO，包含 `ToResponse()` 和 `ToSummaryResponse()` 转换方法
-  - `internal/middleware/` - CORS 中间件
+  - `internal/middleware/` - CORS、Basic Auth 中间件
   - `internal/router/` - 路由定义
 
 ### API 端点
@@ -77,5 +77,6 @@ make dev     # 重新生成 Swagger 并运行服务器
 - `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`
 - `SERVER_PORT` (默认: 8080)
 - `CORS_ALLOWED_ORIGINS` (默认: http://localhost:5173)
+- `SWAGGER_USERNAME`、`SWAGGER_PASSWORD` - Swagger Basic Auth 凭据
 
 使用 `backend/scripts/init.sql` 初始化数据库。

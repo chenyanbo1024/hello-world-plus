@@ -105,7 +105,7 @@ make run
 ```
 
 后端服务将在 `http://localhost:8080` 启动
-Swagger API 文档地址：`http://localhost:8080/swagger/index.html`
+Swagger API 文档地址：`http://localhost:8080/swagger/index.html`（需要 HTTP Basic Auth）
 
 #### 3. 配置前端
 
@@ -188,6 +188,8 @@ make dev     # 重新生成 Swagger 并运行服务器
 | `DB_PASSWORD` | MySQL 密码 | - |
 | `DB_NAME` | 数据库名 | `blog_db` |
 | `CORS_ALLOWED_ORIGINS` | CORS 允许的源 | `http://localhost:5173` |
+| `SWAGGER_USERNAME` | Swagger Basic Auth 用户名 | `admin` |
+| `SWAGGER_PASSWORD` | Swagger Basic Auth 密码 | - |
 
 ## 架构亮点
 

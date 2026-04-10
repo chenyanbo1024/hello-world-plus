@@ -105,7 +105,7 @@ make run
 ```
 
 The backend server will start at `http://localhost:8080`
-Swagger API docs available at `http://localhost:8080/swagger/index.html`
+Swagger API docs available at `http://localhost:8080/swagger/index.html` (requires HTTP Basic Auth)
 
 #### 3. Setup Frontend
 
@@ -188,6 +188,8 @@ make dev     # Regenerate Swagger and run server
 | `DB_PASSWORD` | MySQL password | - |
 | `DB_NAME` | Database name | `blog_db` |
 | `CORS_ALLOWED_ORIGINS` | CORS origins | `http://localhost:5173` |
+| `SWAGGER_USERNAME` | Swagger Basic Auth username | `admin` |
+| `SWAGGER_PASSWORD` | Swagger Basic Auth password | - |
 
 ## Architecture Highlights
 

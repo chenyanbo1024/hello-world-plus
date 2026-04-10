@@ -74,5 +74,6 @@ Backend requires MySQL. Copy `backend/.env.example` to `backend/.env`:
 - `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`
 - `SERVER_PORT` (default: 8080)
 - `CORS_ALLOWED_ORIGINS` (default: http://localhost:5173)
+- `SWAGGER_USERNAME`, `SWAGGER_PASSWORD` - Swagger Basic Auth credentials
 
 Initialize database with `backend/scripts/init.sql`.
