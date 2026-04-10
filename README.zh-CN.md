@@ -1,3 +1,5 @@
+**中文** | [English](README.md)
+
 # 个人博客系统
 
 一个基于 React 和 Go 构建的全栈个人博客系统，专注于 AI/ML 技术内容。

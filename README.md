@@ -1,3 +1,5 @@
+[中文](README.zh-CN.md) | **English**
+
 # Personal Blog System
 
 A full-stack personal blog system for AI/ML technical content, built with React and Go.
