@@ -8,6 +8,7 @@ RUN apk add --no-cache git
 
 # Copy go mod files first for better caching
 COPY go.mod go.sum ./
+ENV GOPROXY=https://goproxy.cn,direct
 RUN go mod download
 
 # Copy source code
