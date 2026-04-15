@@ -1,7 +1,7 @@
 export function Footer() {
   const currentYear = new Date().getFullYear();
-  const icpNumber = "京ICP备XXXXXXXX号-X"; // 占位符，备案通过后替换为实际备案号
-  const siteStartDate = new Date("2024-01-01"); // 网站上线日期，请修改为实际日期
+  const icpNumber = "粤ICP备2026040888号"; // 占位符，备案通过后替换为实际备案号
+  const siteStartDate = new Date("2026-01-01"); // 网站上线日期，请修改为实际日期
 
   // 计算运行天数
   const runningDays = Math.floor(
@@ -13,7 +13,7 @@ export function Footer() {
       <div className="container mx-auto px-6 py-8 max-w-4xl">
         {/* Copyright */}
         <div className="text-center text-xs text-text-muted font-mono mb-3">
-          Copyright © {currentYear} 某某的个人博客. All Rights Reserved.
+          Copyright © {currentYear} abo 的个人博客. All Rights Reserved.
         </div>
 
         {/* 运行时间 */}
